@@ -3,19 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using SimpleJSON;
+using TMPro;
 
 public class camtotext : MonoBehaviour
 {
 
     public string url = "https://vision.googleapis.com/v1/images:annotate?key=";
     public string apiKey = ""; //Put your google cloud vision api key here
-    public float captureIntervalSeconds = 5.0f;
-    public int requestedWidth = 640;
-    public int requestedHeight = 480;   
+    public float captureIntervalSeconds = 1.0f;
+    public int requestedWidth = 600;
+    public int requestedHeight = 800;   
     public FeatureType featureType = FeatureType.TEXT_DETECTION;
-    public int maxResults = 10;
+    public int maxResults = 1;
     public GameObject resPanel;
-    public Text responseText, responseArray;
+    public TMP_Text responseText, responseArray;
     public Quaternion baseRotation;
 
     WebCamTexture webcamTexture;
@@ -95,7 +96,7 @@ public class camtotext : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //transform.rotation = baseRotation * Quaternion.AngleAxis(webcamTexture.videoRotationAngle, Vector3.up);
+        transform.rotation = baseRotation * Quaternion.AngleAxis(webcamTexture.videoRotationAngle, Vector3.down);
     }
 
     [System.Obsolete]
@@ -117,12 +118,8 @@ public class camtotext : MonoBehaviour
             }
 
             texture2D.SetPixels(pixels);
-            // texture2D.Apply(false); // Not required. Because we do not need to be uploaded it to GPU
             byte[] jpg = texture2D.EncodeToJPG();
             string base64 = System.Convert.ToBase64String(jpg);
-            // #if UNITY_WEBGL  
-            //          Application.ExternalCall("post", this.gameObject.name, "OnSuccessFromBrowser", "OnErrorFromBrowser", this.url + this.apiKey, base64, this.featureType.ToString(), this.maxResults);
-            // #else
 
             AnnotateImageRequests requests = new AnnotateImageRequests();
             requests.requests = new List<AnnotateImageRequest>();
@@ -173,18 +170,7 @@ public class camtotext : MonoBehaviour
                     }
                 }
             }
-            // #endif
         }
     }
-
-#if UNITY_WEBGL
-    void OnSuccessFromBrowser(string jsonString) {
-        Debug.Log(jsonString);  
-    }
-
-    void OnErrorFromBrowser(string jsonString) {
-        Debug.Log(jsonString);  
-    }
-#endif
 
 }
