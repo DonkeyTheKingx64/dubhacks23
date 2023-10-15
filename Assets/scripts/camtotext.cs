@@ -64,6 +64,7 @@ public class camtotext : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        responseText.text = "The word will appear here!";
         baseRotation = transform.rotation;
         headers = new Dictionary<string, string>();
         headers.Add("Content-Type", "application/json; charset=UTF-8");
