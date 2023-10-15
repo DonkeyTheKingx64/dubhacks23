@@ -10,12 +10,12 @@ public class translate : MonoBehaviour
     public Text textToTranslate;
     public Text translatedText;
 
-    private string lastChecked = "";
+    private string lastChecked = "hello";
 
     private const string apiUrl = "https://api.us-south.language-translator.watson.cloud.ibm.com/instances/23381c5d-acb8-4cd3-a014-15afe2cc3cc0/v3/translate?version=2018-05-01";
     private const string apiKey = "27tYdhgUAlIdHT8AqC6Zn2T8oI1q_Q5LXtqg6dBsoF5j";
 
-    private void Start() {
+    private void Update() {
         if (textToTranslate.text != lastChecked) {
             lastChecked = textToTranslate.text;
 

@@ -150,7 +150,7 @@ public class camtotext : MonoBehaviour
                         string responses = www.text.Replace("\n", "").Replace(" ", "");
                         // Debug.Log(responses);
                         JSONNode res = JSON.Parse(responses);
-                        string fullText = res["responses"][0]["textAnnotations"][0]["description"].ToString().Trim('"');
+                        string fullText = res["responses"][0]["labelAnnotations"][0]["description"].ToString().Trim('"');
                         if (fullText != "")
                         {
                             Debug.Log("OCR Response: " + fullText);
